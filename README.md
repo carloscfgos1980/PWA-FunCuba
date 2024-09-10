@@ -49,3 +49,31 @@
    7.3 Script to run the command:
    "predeploy": "npm run build",
    "deploy": "gh-pages -d build"
+
+8. React Router
+   https://www.youtube.com/watch?v=OMQ2QARHPo0&list=PL4cUxeGkcC9iVKmtNuCeIswnQ97in2GGf
+
+8.1 App.tsx => Implemente React Routes
+const router = createBrowserRouter(
+createRoutesFromElements(
+.....
+)
+)
+
+return (
+
+<div className="App">
+<RouterProvider router={router}/>
+</div>
+);
+
+8.2 HunNav.tsx => Routes in the NavBar
+import {NavLink} from 'react-router-dom';
+
+        return (
+            <nav className='mt-5 mb-2'>
+                <NavLink to='/'>
+                    <span>Home</span>
+                </NavLink>
+                ...
+        )

@@ -22,6 +22,13 @@
     text-align: center;
 }
 
-h5 {
-    color: orange
+span, h5 {
+    color: orange;
+    margin-left: 15px;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.orange {
+    background-color: orange;
 }
