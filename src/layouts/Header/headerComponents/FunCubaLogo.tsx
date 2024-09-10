@@ -1,4 +1,4 @@
-import logo from '../FunCuba-logo2.jpg';
+import logo from '../../FunCuba-logo2.jpg';
 
 const FunCubaLogo = () => {
     return (
