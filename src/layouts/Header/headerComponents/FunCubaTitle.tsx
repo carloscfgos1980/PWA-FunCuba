@@ -1,11 +1,9 @@
-import '../../layout.css';
+import './FunCubaTitle.css';
 
 
 const FunCubaTitle = () => {
   return (
-      <div className="hit-the-floor">
-                  FUN CUBA
-      </div>
+      <h1>Ready to Party?</h1>
   );
 }
 

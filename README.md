@@ -77,3 +77,11 @@ import {NavLink} from 'react-router-dom';
                 </NavLink>
                 ...
         )
+
+9. Work in the horizontal align (justify) and vertical (align) with containers and flex-box in order to prepare the Header and the Footer. This part is ready
+
+10. Import a image. That took me a lof of time to figure it out!
+    <img src={`${process.env.PUBLIC_URL}/dos_mares1.jpg`}
+    alt="dos mares" />
+
+- The pics most be "public" directory

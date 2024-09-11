@@ -3,7 +3,7 @@ import '../../layout.css';
 
 const FunNav = () => {
     return (
-        <nav className='mt-5 mb-2'>
+        <nav className="d-inline-block align-center">
             <NavLink to='/'>
                 <span>Home</span>
             </NavLink>

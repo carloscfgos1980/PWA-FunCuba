@@ -5,7 +5,6 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
-import './App.css';
 import Home from '../layouts/Pages/Home';
 import AirB from '../layouts/Pages/AirB';
 import RootLayout from '../layouts/RootLayout';

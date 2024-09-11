@@ -1,11 +1,12 @@
-import logo from '../../FunCuba-logo2.jpg';
+import logo from '../../FunCuba-logo.jpeg';
 
 const FunCubaLogo = () => {
     return (
-        <div>
+        <div >
             <img src={logo} 
                 width="40%"
-                className="d-inline-block align-top"
+                className="d-inline-block align-center rounded-circle"
+                style={{borderStyle:"solid", borderWidth: "20%", borderColor: "orange"}}
                 alt="logo" />
         </div>
     )

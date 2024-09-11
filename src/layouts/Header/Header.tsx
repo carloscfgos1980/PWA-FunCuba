@@ -6,14 +6,14 @@ import FunNav from "./headerComponents/FunNav";
 const Header = () => {
     return (
         <div className="container-fluid bg-dark py-3">
-            <div className="row justify-content-between align-items-center">
-                <div className="col-sm-3 text-center my-2">
+            <div className="row d-flex justify-content-between px-2">
+                <div className="col-8 col-sm-3 align-self-center text-start">
                     <FunCubaLogo/>
                 </div>
-                <div className="display-3 col-sm-4 text-center text-light py-1 d-none d-md-block">
+                <div className="col-sm-4 align-self-center py-2">
                     <FunCubaTitle/>
                 </div>
-                <div className="col-sm-5 text-center">
+                <div className="col-sm-5 align-self-end text-end">
                     <FunNav/>
                 </div>
             </div>
