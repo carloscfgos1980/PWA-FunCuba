@@ -44,7 +44,7 @@ const AirB = () => {
     (item) => item.id === cityId,
   );
 
-  const itemSrc = `${process.env.PUBLIC_URL}/imagesCity/${selectedCity.image}`;
+  //   const itemSrc = `${process.env.PUBLIC_URL}/imagesCity/${selectedCity.image}`;
 
   const toggle = (): void => setModal(!modal);
 
