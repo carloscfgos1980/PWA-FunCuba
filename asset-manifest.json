@@ -1,14 +1,18 @@
 {
   "files": {
-    "main.css": "/PWA-FunCuba/static/css/main.f6861fd7.css",
-    "main.js": "/PWA-FunCuba/static/js/main.52c76104.js",
-    "static/media/FunCuba-logo2.jpg": "/PWA-FunCuba/static/media/FunCuba-logo2.a3268626a4ba1f39294e.jpg",
+    "main.css": "/PWA-FunCuba/static/css/main.bc8331f4.css",
+    "main.js": "/PWA-FunCuba/static/js/main.b1c7c473.js",
+    "static/media/FunCuba-logo.jpeg": "/PWA-FunCuba/static/media/FunCuba-logo.c543bf87425dc9dd5ed9.jpeg",
+    "static/media/havana.jpg": "/PWA-FunCuba/static/media/havana.c8b8e42cc70c72c9b077.jpg",
+    "static/media/envelope-at-fill.svg": "/PWA-FunCuba/static/media/envelope-at-fill.68f25a7ccd73f7a88de37b80795fbe3c.svg",
+    "static/media/instagram.svg": "/PWA-FunCuba/static/media/instagram.448198b22019bf2f0b71355b8346c675.svg",
     "index.html": "/PWA-FunCuba/index.html",
-    "main.f6861fd7.css.map": "/PWA-FunCuba/static/css/main.f6861fd7.css.map",
-    "main.52c76104.js.map": "/PWA-FunCuba/static/js/main.52c76104.js.map"
+    "static/media/facebook.svg": "/PWA-FunCuba/static/media/facebook.4172f094907a6837b8f36d120b55601b.svg",
+    "main.bc8331f4.css.map": "/PWA-FunCuba/static/css/main.bc8331f4.css.map",
+    "main.b1c7c473.js.map": "/PWA-FunCuba/static/js/main.b1c7c473.js.map"
   },
   "entrypoints": [
-    "static/css/main.f6861fd7.css",
-    "static/js/main.52c76104.js"
+    "static/css/main.bc8331f4.css",
+    "static/js/main.b1c7c473.js"
   ]
 }
