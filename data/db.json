@@ -1,0 +1,59 @@
+{
+  "data": [
+    {
+      "feedbacks": {
+        "airBnB": [
+          {
+            "id": 1,
+            "airId": "lalita",
+            "score": 5,
+            "comment": "bueneoe bueneoe bueneoe bueneoe bueneoe bueneoe bueneoe bueneoe bueneoe bueneoe bueneoe bueneoe ",
+            "author": "John Oliver",
+            "country": "UK"
+          },
+          {
+            "id": 2,
+            "airId": "lalita",
+            "score": 4,
+            "comment": "regular regular regular regular regular regular regular regular regular regular regular regular regular ",
+            "author": "Trevor Noah",
+            "country": "South Africa"
+          },
+          {
+            "id": 3,
+            "airId": "lalita",
+            "score": 5,
+            "comment": "Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita Doña Lalita ",
+            "author": "Jimmy Kimmel",
+            "country": "US"
+          },
+          {
+            "id": 4,
+            "airId": "luisa",
+            "score": 3,
+            "comment": "super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super ",
+            "author": "Maikol",
+            "country": "Mexico"
+          },
+          {
+            "id": 5,
+            "airId": "luisa",
+            "score": 5,
+            "comment": "Doña luisa que bien Doña luisa que bien Doña luisa que bien Doña luisa que bien Doña luisa que bien Doña luisa que bien Doña luisa que bien Doña luisa que bien ",
+            "country": "US"
+          },
+          {
+            "id": 6,
+            "airId": "luisa",
+            "score": 3,
+            "comment": "soso sosososososososososososososo soso soso soso sosososo soso  soso  soso  soso  soso  soso  soso  soso  ",
+            "author": "Yanko",
+            "country": "US"
+          }
+        ],
+        "chill": {}
+      },
+      "trip": {}
+    }
+  ]
+}

@@ -1,13 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import filteredRobots from './filteredRobots';
+import filteredFeedbacks from "./filteredFeedbacks";
 
 export const store = configureStore({
-    reducer: {
-        filteredRobots: filteredRobots
-    }
-})
+  reducer: {
+    filteredFeedbacks: filteredFeedbacks,
+  },
+});
 
 export type RootState = ReturnType<typeof store.getState>;
 export const useAppDispatch: () => typeof store.dispatch = useDispatch;

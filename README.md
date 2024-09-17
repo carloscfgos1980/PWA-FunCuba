@@ -85,3 +85,22 @@ import {NavLink} from 'react-router-dom';
     alt="dos mares" />
 
 - The pics most be "public" directory
+
+11. json server to mock database. Root of the app, create "data/de.json"
+    run in a different terminal:
+    npx json-server --watch data/db.json --port 8000
+
+17/09/2024
+uffff bunch of stuff I have tried! I git airB page ready:
+AirB serves:
+Cuba component
+Form. This loop over cityData
+Model
+Div:
+~ description city
+~ carousel airBnb of selected city
+
+- Model shows up when I click in a AirBnB
+  Model has another carousel with the pics of the selected airBnB
+
+when media query small, there are not arrow to wipe the images so I placed a message for this query (cellphone) to inform people they neeed to wipe the images
