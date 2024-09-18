@@ -5,6 +5,8 @@ import CarouselAir from "../../components/CarouselAir";
 import citiesData from "../../components/contentText/citiesData";
 import airData from "../../components/contentText/airData";
 import FunModal from "../../components/FunModal";
+import havana from "../../components/imgCities/havana.jpg";
+import pagesContent from "../../components/contentText/pagesContent";
 
 type AirBB = {
   idAirB: string;
@@ -44,8 +46,6 @@ const AirB = () => {
     (item) => item.id === cityId,
   );
 
-  //   const itemSrc = `${process.env.PUBLIC_URL}/imagesCity/${selectedCity.image}`;
-
   const toggle = (): void => setModal(!modal);
 
   const getAirId = (value: string): void => setAirId(value);
@@ -62,7 +62,7 @@ const AirB = () => {
   return (
     <div className="container-fluid bg-light py-3">
       <div className="row justify-content-center">
-        <Cuba />
+        <Cuba img={havana} text={pagesContent.cuba} />
         <FormSelect getCityId={getCityId} items={citiesData} />
         <FunModal
           modal={modal}
@@ -85,13 +85,12 @@ const AirB = () => {
             <p className="text-danger text-center">
               click 'em' for Air B&B's details!
             </p>
-
             <CarouselAir
               items={selectedCity.airB}
               modalGetAidId={modalGetAidId}
             />
           </div>
-          <p className=" col-10 col-sm-4 order-md-first align-self-center lead">
+          <p className="col-10 col-sm-4 order-md-first align-self-center lead">
             {selectedCity?.description}
           </p>
         </div>

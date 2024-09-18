@@ -18,7 +18,7 @@ const FormSelect = ({ getCityId, items }: FormProps) => {
       {items.map((item: any, index: number) => {
         return (
           <option value={item.id} key={index}>
-            {item.city}
+            {item.name}
           </option>
         );
       })}
