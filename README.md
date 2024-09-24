@@ -152,6 +152,23 @@ getCityId={getChillId} items={selectedChillxCity}
 
 - This part was easy, I reuse most of the functions from AirB
 
-# 19/09/2024
+# 19/09/2024 - 24/09/2024
 
 # 15. PlanTrip
+
+It has 4 main components:
+
+1. calandar to select days for the whole trip
+2. form to select the city
+3. form to select days of the destination, taxi, AirBnB, ChillOut.
+
+- Yet AirBnB and ChillOut form to complete
+
+4. Display the data (also to be done)
+
+I started to use but gave a bug so I changed to
+import { memo } from "react";
+
+I took a lof of time coz I need to implement the store, change everything from "hooks" to redux. It was too messy with hooks, to many states to handle
+
+# 25/09/2024
