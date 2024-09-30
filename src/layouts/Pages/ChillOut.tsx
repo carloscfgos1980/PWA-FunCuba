@@ -17,17 +17,15 @@ type SelectedChill = {
   description: string;
 };
 const ChillOut = () => {
-  const [cityId, setCityId] = useState<string>("1");
+  const [cityId, setCityId] = useState<string>("Havana");
   const [chillId, setChillId] = useState<string>("1");
-  console.log("city Id", cityId);
 
   const getCityId = (value: string): void => setCityId(value);
-  console.log("chill id", chillId);
 
   const getChillId = (value: string): void => setChillId(value);
 
   const selectedChillxCity = chillingData.filter((chill) => {
-    return chill.cityId === cityId;
+    return chill.city === cityId;
   });
 
   const selectedChill: SelectedChill | any = chillingData.find(

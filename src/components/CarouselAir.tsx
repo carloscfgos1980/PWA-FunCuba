@@ -12,7 +12,6 @@ const carouselAir = ({ items, modalGetAidId }: any) => {
     >
       {items.map((item: any, index: number) => {
         const itemSrc = `${process.env.PUBLIC_URL}/imagesAir/${item.route}`;
-        console.log("key:", index);
         return (
           <Carousel.Item key={index} className="image_container">
             <div className="d-flex flex-column ">

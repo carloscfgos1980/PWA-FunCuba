@@ -1,7 +1,6 @@
 const chillingData = [
   {
-    id: "1",
-    cityId: "1",
+    id: "gampara",
     price: 50,
     city: "Havana",
     name: "Guampara Music Studios",
@@ -10,8 +9,7 @@ const chillingData = [
       "isiting DJ Jigüe's studio. Guampara is a unique opportunity to dive into the heart of Havana's underground music scene. As the founder of Guampara Music, DJ Jigüe has established this independent label as a beacon for Afro-Cuban music, blending traditional rhythms with contemporary electronic sounds Engage in conversations about the evolution of Cuban music and how Guampara Music is reshaping the industry landscape, particularly for young artists in Havana Depending on the schedule, you might witness live music sessions or production demonstrations, showcasing the fusion of traditional and modern sounds that define Guampara Guampara Music is more than just a record label; it represents a movement toward the recognition of Afro-Cuban culture and contemporary urban sounds. By visiting DJ Jigüe's studio, you are stepping into a space where innovation meets tradition, and where the future of Cuban music is being forged",
   },
   {
-    id: "2",
-    cityId: "1",
+    id: "bleco",
     price: 50,
     city: "Havana",
     name: "Kick Off the night at Bleco",
@@ -20,8 +18,7 @@ const chillingData = [
       "Start your night at Bleco, the go-to bar for those who appreciate a well-crafted cocktail in a chill setting. This place is all about creative drinks that pack a punch, featuring local ingredients that’ll make your taste buds dance. The vibe is laid-back yet stylish, perfect for kicking back with friends and getting in the groove before the night heats up.",
   },
   {
-    id: "3",
-    cityId: "1",
+    id: "fac",
     price: 60,
     city: "Havana",
     name: "Hit Up Fábrica de Arte Cubano (FAC)",
@@ -30,8 +27,7 @@ const chillingData = [
       "Next, make your way to Fábrica de Arte Cubano (FAC), the beating heart of Havana’s artsy nightlife. This former cooking oil factory is now a sprawling cultural playground where art, music, and nightlife collide. With galleries, live performances, and DJ sets, FAC is the kind of place that keeps you guessing. You’ll wander through various spaces, soaking up the creative energy and maybe even catching a live band or an impromptu dance party. It’s open Thursday to Sunday until 3 AM, so you can lose track of time without a care",
   },
   {
-    id: "4",
-    cityId: "1",
+    id: "oreilly",
     price: 40,
     city: "Havana",
     name: "Chow Down and Drink Up at O'Reilly 304",
@@ -40,8 +36,7 @@ const chillingData = [
       "After soaking in the art scene, stroll over to O'Reilly 304 for some seriously good eats. This trendy spot serves up a killer mix of traditional Cuban flavors and modern twists. Grab a table and pair your meal with a refreshing mojito or a classic daiquiri—trust us, you’ll want to fuel up for the night ahead",
   },
   {
-    id: "5",
-    cityId: "1",
+    id: "club_23",
     price: 60,
     city: "Havana",
     name: "Dance Like Nobody’s Watching at Club 23",
@@ -50,7 +45,7 @@ const chillingData = [
       "Once you’ve satisfied your hunger, it’s time to hit Club 23, one of Havana’s hottest nightclubs. This place is where the party kicks off, with a mix of live music and DJs spinning the latest reggaeton and salsa tracks. The energy is electric, and the dance floor is packed with locals and travelers alike, all ready to let loose. Don’t be surprised if you find yourself dancing until the sun comes up—this place knows how to keep the party going. This itinerary is your ticket to experiencing the raw, vibrant nightlife of Havana, blending art, music, and mouthwatering food into one unforgettable night. Get ready to make some memories!",
   },
   {
-    id: "6",
+    id: "tour colonial",
     price: 40,
     city: "Havana",
     name: "Tour Colonial",
@@ -58,8 +53,7 @@ const chillingData = [
     description: "Recorrido por el Centro Histórico de la Habana",
   },
   {
-    id: "7",
-    cityId: "1",
+    id: "old_cars",
     price: 50,
     city: "Havana",
     name: "Tour Habaneando",
@@ -68,8 +62,7 @@ const chillingData = [
       "se realiza en carros convertibles. ( Recorridos por los repartos residenciales de la ciudad)",
   },
   {
-    id: "8",
-    cityId: "3",
+    id: "domino",
     price: 50,
     city: "Cienfuegos",
     name: "Dale agua al domino",
@@ -78,8 +71,7 @@ const chillingData = [
       "Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino Domino ",
   },
   {
-    id: "9",
-    cityId: "3",
+    id: "sailing",
     price: 40,
     city: "Cienfuegos",
     name: "Fun Sailing",
@@ -88,8 +80,7 @@ const chillingData = [
       "Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia Gozadera en la bahia ",
   },
   {
-    id: "10",
-    cityId: "3",
+    id: "nicho",
     price: 100,
     city: "Cienfuegos",
     name: "Nicho: Amazing waterfalls and more",
@@ -97,8 +88,7 @@ const chillingData = [
     description: "Nicho, almuerzo con los guajiros, paseo a caballo",
   },
   {
-    id: "11",
-    cityId: "3",
+    id: "painting",
     price: 50,
     city: "Cienfuegos",
     name: "Colour yourself",
@@ -106,8 +96,7 @@ const chillingData = [
     description: "Talleres de pintura",
   },
   {
-    id: "12",
-    cityId: "3",
+    id: "salsa",
     price: 50,
     city: "Cienfuegos",
     name: "Menealo",
@@ -115,8 +104,7 @@ const chillingData = [
     description: "Salsa and reggaeton workshop",
   },
   {
-    id: "13",
-    cityId: "4",
+    id: "ellegua",
     price: 50,
     city: "Trinidad",
     name: "Ellegau guides me!",
@@ -125,8 +113,7 @@ const chillingData = [
       "Trour por los bares de la ciudad de Trinidad con un gu[ia vestido y actuando como Ellegua",
   },
   {
-    id: "14",
-    cityId: "4",
+    id: "deep_trinidad",
     price: 50,
     city: "Trinidad",
     name: "Deep Trinidad",
@@ -134,8 +121,7 @@ const chillingData = [
     description: "Meet how Cubas trully live",
   },
   {
-    id: "15",
-    cityId: "4",
+    id: "cooking",
     price: 50,
     city: "Trinidad",
     name: "It is Cooking time!",
@@ -143,8 +129,7 @@ const chillingData = [
     description: "Let's cook together a genuine Cuban meal",
   },
   {
-    id: "16",
-    cityId: "2",
+    id: "cigar",
     price: 60,
     city: "Viñales",
     name: "Quality time",

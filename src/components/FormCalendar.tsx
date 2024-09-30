@@ -1,5 +1,3 @@
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
 import { memo } from "react";
 
 const DatePicker = memo(({ selectedDate, onDateChange }: any) => {
@@ -9,23 +7,19 @@ const DatePicker = memo(({ selectedDate, onDateChange }: any) => {
 const FormCalendar = ({
   dateStart,
   dateEnd,
-  getDateStart,
   getDateEnd,
+  calculateDays,
 }: any) => {
   return (
     <div className="d-flex">
       <div>
-        <DatePicker
-          selectedDate={dateStart}
-          minDate={dateStart}
-          onDateChange={getDateStart}
-        />
+        <DatePicker selectedDate={dateStart} />
       </div>
       <div>
         <DatePicker
           selectedDate={dateEnd}
-          minDate={dateStart}
           onDateChange={getDateEnd}
+          onClick={() => calculateDays(dateStart, dateEnd)}
         />
       </div>
     </div>

@@ -1,18 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import ChillOut from "../layouts/Pages/ChillOut";
 
-type AirBnB = {
-  id: number;
-  name: string;
+export type AirBnB = {
+  id: string;
+  name: string | undefined;
   hab: number;
   price: number;
   subTotal: number;
 };
 
-type Chillout = {
-  id: number;
-  name: string;
-  price: number;
+export type ChillOut = {
+  id: string | undefined;
+  name: string | undefined;
+  price: number | undefined;
+  dateChill: string;
 };
 
 type TaxiRoute = {
@@ -38,8 +38,10 @@ type Destination = {
   routeDateEnd: string;
   days: number;
   taxi: number;
+  totalAir: number | undefined;
+  totaChill: number | undefined;
   AirBnBs: AirBnB[];
-  ChillOuts: Chillout[];
+  ChillOuts: ChillOut[];
 };
 type RoutesState = {
   clientId: number;
@@ -48,9 +50,26 @@ type RoutesState = {
   tripDays: number;
   total: number;
   destination: Destination;
+  airBnB: AirBnB;
+  chillOut: ChillOut;
   destinations: Destination[];
 };
 
+type AirB_AirTotal = {
+  airId: string;
+  name: string | undefined;
+  price: number;
+  hab: number;
+  subTotal: number;
+  totalAirB: number;
+};
+type chillOut_Total = {
+  id: string | undefined;
+  name: string | undefined;
+  price: number | undefined;
+  dateChill: string;
+  totaChill: number | undefined;
+};
 // const calculateDays = (day1: string, day2:string) => {
 //         const dateStart = new Date(day1);
 //         const dateEnd = new Date(day2);
@@ -67,6 +86,19 @@ const initialState: RoutesState = {
   dateEnd: new Date().toISOString(),
   tripDays: 0,
   total: 0,
+  airBnB: {
+    id: "",
+    name: "",
+    hab: 0,
+    price: 0,
+    subTotal: 0,
+  },
+  chillOut: {
+    id: "domino",
+    name: "",
+    price: 0,
+    dateChill: "",
+  },
   destination: {
     id: 0,
     routeStart: "",
@@ -75,6 +107,8 @@ const initialState: RoutesState = {
     routeDateEnd: new Date().toISOString(),
     days: 0,
     taxi: 0,
+    totalAir: 0,
+    totaChill: 0,
     AirBnBs: [],
     ChillOuts: [],
   },
@@ -99,11 +133,31 @@ export const filteredRoutesSlice = createSlice({
       state.destination.routeDateEnd = action.payload.routeDateEnd;
       state.destination.days = action.payload.days;
       state.destination.taxi = action.payload.price;
+      let sum = 0;
+      state.destination.AirBnBs.forEach((item) => (sum += item.subTotal));
+      state.destination.totalAir = sum;
       state.destinations.push(state.destination);
+    },
+    addAirB_AirTotal: (state, action: PayloadAction<AirB_AirTotal>) => {
+      state.airBnB.id = action.payload.airId;
+      state.airBnB.name = action.payload.name;
+      state.airBnB.hab = action.payload.hab;
+      state.airBnB.price = action.payload.price;
+      state.airBnB.subTotal = action.payload.subTotal;
+      state.destination.AirBnBs.push(state.airBnB);
+    },
+    addChillOut: (state, action: PayloadAction<chillOut_Total>) => {
+      state.chillOut.id = action.payload.id;
+      state.chillOut.name = action.payload.name;
+      state.chillOut.price = action.payload.price;
+      state.chillOut.dateChill = action.payload.dateChill;
+      state.destination.totaChill = action.payload.totaChill;
+      state.destination.ChillOuts.push(state.chillOut);
     },
   },
 });
 
-export const { addStartTrip, addTaxiRoute } = filteredRoutesSlice.actions;
+export const { addStartTrip, addTaxiRoute, addAirB_AirTotal, addChillOut } =
+  filteredRoutesSlice.actions;
 
 export default filteredRoutesSlice.reducer;

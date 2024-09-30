@@ -31,7 +31,6 @@ function FunCarousel({ items }: any) {
 
   const slides = items.map((item: any) => {
     const itemSrc = `${process.env.PUBLIC_URL}/images/${item.route}`;
-    console.log("itemSrc:", itemSrc);
     return (
       <CarouselItem
         onExiting={() => setAnimating(true)}

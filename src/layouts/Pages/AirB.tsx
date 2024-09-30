@@ -56,7 +56,7 @@ const AirB = () => {
   };
 
   const selectedAirB: SelectedAirB | any = airData.find(
-    (item) => item.airId === airId,
+    (item) => item.id === airId,
   );
 
   return (

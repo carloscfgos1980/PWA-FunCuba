@@ -5,6 +5,8 @@ import citiesData from "../../components/contentText/citiesData";
 import { useAppDispatch, useAppSelector } from "../../redux/configureStore";
 import { addStartTrip, addTaxiRoute } from "../../redux/filteredRoutes";
 import CheckBoxComponent from "../../components/CheckBoxComponent";
+import AddAirB from "../../components/AddAirB";
+import AddChilling from "../../components/AddChilling";
 
 // type SelectedCity = {
 //   id: number;
@@ -35,14 +37,34 @@ const TripPlan = () => {
   const [tripStart, setTripStart] = useState<string>("Airport");
   const [tripEnd, setTripEnd] = useState<string>("Havana");
   const [priceTaxi, setPriceTaxi] = useState<number>(0);
-  const [display, setDisplay] = useState<string>("d-none");
-  // const [routeDateStart, setRouteDateStart] = useState<Date>(dateStart);
-  // const [routeDateEnd, setRouteDateEnd] = useState<Date>(dateStart)
-  // console.log('date start:', dateStart, 'date end:', dateEnd)
+  const [display1, setDisplay1] = useState<string>("none");
+  const [daysTrip, setDaysTrip] = useState<number>(0);
+  const [daysRoute, setDaysRoute] = useState<number>(0);
+  const [totalDays, setTotalDays] = useState<number[]>([]);
+
   const dispatch = useAppDispatch();
 
+  const selectedCity: any = citiesData.find((city) => city?.id === cityId);
+  const city = selectedCity.city;
+
   const getDateStart = (e: any) => setDateStart(e.target.value);
-  const getDateEnd = (e: any) => setDateEnd(e.target.value);
+  const getDateTripEnd = (e: any) => {
+    setDateEnd(e.target.value);
+    const days = calculateDays(dateStart, e.target.value);
+    setDaysTrip(days);
+  };
+  const getDateRouteEnd = (e: any) => {
+    setDateEnd(e.target.value);
+    const days = calculateDays(dateStart, e.target.value);
+    setDaysRoute(days);
+    setTotalDays([...totalDays, days]);
+  };
+
+  const sumDays = totalDays.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+  }, 0);
+
+  const remainDays = daysTrip - sumDays;
 
   const calculateDays = (day1: string, day2: string) => {
     const dateStart = new Date(day1);
@@ -62,18 +84,17 @@ const TripPlan = () => {
   const startTrip = {
     tripStart: dateStart,
     tripEnd: dateEnd,
-    tripDays: calculateDays(dateStart, dateEnd),
+    tripDays: daysTrip,
   };
+
   const getTaxiRoute = () => {
-    console.log("date start2:", dateStart);
-    console.log("dateEnd2:", dateEnd);
     dispatch(
       addTaxiRoute({
         start: tripStart,
         end: tripEnd,
         routeDateStart: dateStart,
         routeDateEnd: dateEnd,
-        days: calculateDays(dateStart, dateEnd),
+        days: daysRoute,
         price: priceTaxi,
       }),
     );
@@ -82,42 +103,50 @@ const TripPlan = () => {
   console.log(Routes);
 
   const displayFormTrip = (trip: Trip) => {
-    setDisplay("d-inline");
+    setDisplay1("inline-block");
     dispatch(addStartTrip(trip));
   };
+
   return (
     <div>
       <h1>TripPlan</h1>
-      <div className=" d-flex">
+      <div className="trip-calendar-trip d-flex">
         <FormCalendar
           getCityId={getCityId}
           items={citiesData}
           getDateStart={getDateStart}
-          getDateEnd={getDateEnd}
+          getDateEnd={getDateTripEnd}
         />
-        <p className="mx-3">amount days: {calculateDays(dateStart, dateEnd)}</p>
+        <p className="mx-3">amount days: {daysTrip}</p>
+        <p> remaining days: {remainDays}</p>
       </div>
-      <div>
+      <div className="get-city d-flex">
         <FormSelect getCityId={getCityId} items={citiesData} />
+        <button onClick={() => displayFormTrip(startTrip)}>start trip</button>
       </div>
-      <button onClick={() => displayFormTrip(startTrip)}>start trip</button>
-      <div className={display}>
-        <div className=" d-flex">
+      <div style={{ display: display1 }}>
+        <div className="form-calendar-destination d-flex">
           <FormCalendar
             getCityId={getCityId}
             items={citiesData}
             getDateStart={getDateStart}
-            getDateEnd={getDateEnd}
+            getDateEnd={getDateRouteEnd}
           />
-          <p className="mx-3">
-            amount days: {calculateDays(dateStart, dateEnd)}
-          </p>
+          <p className="mx-3">amount days: {daysRoute}</p>
         </div>
-        <CheckBoxComponent
-          start={tripStart}
-          end={tripEnd}
-          getTaxiPrice={getTaxiPrice}
-        />
+        <div className="add-city">
+          <CheckBoxComponent
+            start={tripStart}
+            end={tripEnd}
+            getTaxiPrice={getTaxiPrice}
+          />
+        </div>
+        <div className="add-AirB">
+          <AddAirB city={city} daysRoute={daysRoute} />
+        </div>
+        <div>
+          <AddChilling city={city} />
+        </div>
         <button onClick={getTaxiRoute}>add destiny</button>
       </div>
     </div>

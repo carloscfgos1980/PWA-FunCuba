@@ -3,7 +3,6 @@ import taxiData from "./contentText/taxiData";
 
 const CheckBoxComponent = ({ start, end, getTaxiPrice }: any) => {
   const [checked, setChecked] = useState<boolean>(false);
-  console.log("start:", start, "end:", end);
 
   const selectedTrip = taxiData.find(
     (trip) =>
@@ -11,15 +10,9 @@ const CheckBoxComponent = ({ start, end, getTaxiPrice }: any) => {
       (trip.tripStart === end && trip.tripEnd === start),
   );
 
-  console.log(
-    "selected trip:",
-    typeof selectedTrip?.price,
-    selectedTrip?.price,
-  );
   const price = selectedTrip?.price;
   const handleChange = (value: number | undefined) => {
     setChecked(!checked);
-    console.log("checked:", checked);
     if (!checked) {
       return getTaxiPrice(value);
     } else {
