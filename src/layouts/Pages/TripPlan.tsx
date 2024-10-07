@@ -1,153 +1,181 @@
 import { useState } from "react";
-import FormCalendar from "../../components/FormCalendar";
-import FormSelect from "../../components/FormSelect";
-import citiesData from "../../components/contentText/citiesData";
 import { useAppDispatch, useAppSelector } from "../../redux/configureStore";
-import { addStartTrip, addTaxiRoute } from "../../redux/filteredRoutes";
+import citiesData from "../../components/contentText/citiesData";
+import FormCalendar from "../../components/FormCalendar";
+import {
+  addRoute,
+  addStartRoute,
+  addStartTrip,
+  addTaxiPrice,
+  addTripEnd,
+} from "../../redux/filteredTripPlan";
+import FormSelect from "../../components/FormSelect";
 import CheckBoxComponent from "../../components/CheckBoxComponent";
 import AddAirB from "../../components/AddAirB";
 import AddChilling from "../../components/AddChilling";
-
-// type SelectedCity = {
-//   id: number;
-//   city: string;
-//   name: string;
-//   description: string;
-//   airB: AirBB[];
-// };
-
-type Trip = {
-  tripStart: string;
-  tripEnd: string;
-  tripDays: number;
-};
-
-// type Destiny ={
-//     id: number;
-//     priceTaxi: number;
-//     city:string;
-// }
+import pagesContent from "../../components/contentText/pagesContent";
 
 const TripPlan = () => {
   const [dateStart, setDateStart] = useState<string>(
     new Date().toISOString().slice(0, 10),
   );
-  const [dateEnd, setDateEnd] = useState<string>(dateStart);
   const [cityId, setCityId] = useState<string>("1");
-  const [tripStart, setTripStart] = useState<string>("Airport");
-  const [tripEnd, setTripEnd] = useState<string>("Havana");
-  const [priceTaxi, setPriceTaxi] = useState<number>(0);
   const [display1, setDisplay1] = useState<string>("none");
-  const [daysTrip, setDaysTrip] = useState<number>(0);
-  const [daysRoute, setDaysRoute] = useState<number>(0);
-  const [totalDays, setTotalDays] = useState<number[]>([]);
+  const [key, setKey] = useState(0);
+  const TripText1 = pagesContent.tripPlan.intro1;
+  const TripText2 = pagesContent.tripPlan.intro2;
 
   const dispatch = useAppDispatch();
 
-  const selectedCity: any = citiesData.find((city) => city?.id === cityId);
-  const city = selectedCity.city;
-
   const getDateStart = (e: any) => setDateStart(e.target.value);
+
   const getDateTripEnd = (e: any) => {
-    setDateEnd(e.target.value);
-    const days = calculateDays(dateStart, e.target.value);
-    setDaysTrip(days);
-  };
-  const getDateRouteEnd = (e: any) => {
-    setDateEnd(e.target.value);
-    const days = calculateDays(dateStart, e.target.value);
-    setDaysRoute(days);
-    setTotalDays([...totalDays, days]);
-  };
-
-  const sumDays = totalDays.reduce((accumulator, currentValue) => {
-    return accumulator + currentValue;
-  }, 0);
-
-  const remainDays = daysTrip - sumDays;
-
-  const calculateDays = (day1: string, day2: string) => {
-    const dateStart = new Date(day1);
-    const dateEnd = new Date(day2);
-    // let Result = dateEnd - dateStart
-    let one_day = 1000 * 60 * 60 * 24;
-    let Result = Math.round(
-      (dateEnd.getTime() - dateStart.getTime()) / one_day,
+    dispatch(
+      addStartTrip({
+        dateStart: dateStart,
+        dateEnd: e.target.value,
+      }),
     );
-    return Result;
+  };
+
+  const getDateRouteEnd = (e: any) => {
+    dispatch(
+      addStartRoute({
+        dateStart: dateStart,
+        dateEnd: e.target.value,
+      }),
+    );
   };
 
   const getCityId = (value: string): void => setCityId(value);
 
-  const getTaxiPrice = (value: number) => setPriceTaxi(value);
+  const selectedCity: any = citiesData.find((city) => city?.id === cityId);
+  const city = selectedCity.city;
 
-  const startTrip = {
-    tripStart: dateStart,
-    tripEnd: dateEnd,
-    tripDays: daysTrip,
-  };
-
-  const getTaxiRoute = () => {
-    dispatch(
-      addTaxiRoute({
-        start: tripStart,
-        end: tripEnd,
-        routeDateStart: dateStart,
-        routeDateEnd: dateEnd,
-        days: daysRoute,
-        price: priceTaxi,
-      }),
-    );
-  };
-  const Routes = useAppSelector((state) => state.filteredRoutes);
-  console.log(Routes);
-
-  const displayFormTrip = (trip: Trip) => {
+  const getDestination = () => {
+    dispatch(addTripEnd(city));
     setDisplay1("inline-block");
-    dispatch(addStartTrip(trip));
+  };
+
+  const getRoute = () => {
+    dispatch(addRoute());
+    setDisplay1("none");
+    setKey((currentKey) => currentKey + 1);
+  };
+
+  const tripPlan = useAppSelector((state) => state.filteredTripPlan);
+  console.log("trip plan:", tripPlan.trip);
+  const tripDays = tripPlan.trip.tripDays;
+  const routeDays = tripPlan.route.days;
+  const routes = tripPlan.trip.routes;
+  const tripDateStart: string = new Date(
+    tripPlan.trip.tripDateStart,
+  ).toDateString();
+  const tripDateEnd: string = new Date(
+    tripPlan.trip.tripDateEnd,
+  ).toDateString();
+  const routeDateStart: string = new Date(
+    tripPlan.route.routeDateStart,
+  ).toDateString();
+  const routeDateEnd: string = new Date(
+    tripPlan.route.routeDateEnd,
+  ).toDateString();
+
+  const getTaxiPrice = (value: number) => {
+    dispatch(addTaxiPrice(value));
   };
 
   return (
-    <div>
-      <h1>TripPlan</h1>
-      <div className="trip-calendar-trip d-flex">
-        <FormCalendar
-          getCityId={getCityId}
-          items={citiesData}
-          getDateStart={getDateStart}
-          getDateEnd={getDateTripEnd}
-        />
-        <p className="mx-3">amount days: {daysTrip}</p>
-        <p> remaining days: {remainDays}</p>
-      </div>
-      <div className="get-city d-flex">
-        <FormSelect getCityId={getCityId} items={citiesData} />
-        <button onClick={() => displayFormTrip(startTrip)}>start trip</button>
-      </div>
-      <div style={{ display: display1 }}>
-        <div className="form-calendar-destination d-flex">
-          <FormCalendar
-            getCityId={getCityId}
-            items={citiesData}
-            getDateStart={getDateStart}
-            getDateEnd={getDateRouteEnd}
-          />
-          <p className="mx-3">amount days: {daysRoute}</p>
+    <div key={key} className="container-fluid bg-light py-3">
+      <div className="row justify-content-center">
+        <div className="col-sm-8">
+          <div className="trip-introduction">
+            <h1 className="text-center">Trip Plan</h1>
+            <p className="lead">{TripText1}</p>
+            <p className="lead">{TripText2}</p>
+          </div>
+          <div className="trip-calendar mt-3">
+            <h1 className="text-center">Let's start. Select date</h1>
+            <FormCalendar
+              getDateStart={getDateStart}
+              getDateEnd={getDateTripEnd}
+            />
+            <table className="table table-dark table-striped text-center my-3">
+              <thead>
+                <tr>
+                  <th scope="col">Arrive</th>
+                  <th scope="col">Departure</th>
+                  <th scope="col">Total Days</th>
+                  <th scope="col">Remain Days</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th className="mx-2">{tripDateStart}</th>
+                  <th className="mx-2">{tripDateEnd}</th>
+                  <th className="mx-2">{tripDays}</th>
+                  <th className="mx-2">{tripPlan.remaninedDays}</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="destionations">
+            <h1 className="text-center mt-4">Routes</h1>
+            <table className="table table-dark table-striped text-center my-3">
+              <thead>
+                <tr>
+                  <th scope="col">Route</th>
+                  <th scope="col">arrive</th>
+                  <th scope="col">departure</th>
+                  <th scope="col">days</th>
+                </tr>
+              </thead>
+              <tbody>
+                {routes.map((route, index) => {
+                  return (
+                    <tr key={index}>
+                      <th className="mx-2">{route.routeEnd}</th>
+                      <td className="mx-2">{routeDateStart}</td>
+                      <td className="mx-2">{routeDateEnd}</td>
+                      <td className="mx-2">{route.days}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div className="get-city d-flex">
+            <FormSelect getCityId={getCityId} items={citiesData} />
+            <button className="btn btn-success" onClick={getDestination}>
+              select destination
+            </button>
+          </div>
+          <div className="form" style={{ display: display1 }}>
+            <div className="route-date d-flex justify-content-end mt-3 me-3">
+              <FormCalendar
+                getDateStart={getDateStart}
+                getDateEnd={getDateRouteEnd}
+              />
+              <p className="mx-3">amount days: {routeDays}</p>
+            </div>
+            <div className="add-taxi text-end mt-3 me-3">
+              <CheckBoxComponent
+                start={tripPlan.route.routeStart}
+                end={tripPlan.route.routeEnd}
+                getTaxiPrice={getTaxiPrice}
+              />
+            </div>
+            <div className="add-airB">
+              <AddAirB city={city} daysRoute={routeDays} />
+            </div>
+            <div className="add-chill">
+              <AddChilling city={city} />
+            </div>
+            <button className="btn btn-success" onClick={getRoute}>
+              Add Route
+            </button>
+          </div>
         </div>
-        <div className="add-city">
-          <CheckBoxComponent
-            start={tripStart}
-            end={tripEnd}
-            getTaxiPrice={getTaxiPrice}
-          />
-        </div>
-        <div className="add-AirB">
-          <AddAirB city={city} daysRoute={daysRoute} />
-        </div>
-        <div>
-          <AddChilling city={city} />
-        </div>
-        <button onClick={getTaxiRoute}>add destiny</button>
       </div>
     </div>
   );

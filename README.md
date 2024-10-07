@@ -171,4 +171,68 @@ import { memo } from "react";
 
 I took a lof of time coz I need to implement the store, change everything from "hooks" to redux. It was too messy with hooks, to many states to handle
 
-# 25/09/2024
+# 25/09/2024 - 7/10/2024
+
+# Plan Trip.
+
+I have build this section, at least 3 times! I did't have a clear idea what to do. I started with hooks but the coding was too messy so i switched to redux... now it looks a lot better
+
+tripPlan.tsx:
+Sections:
+
+1. trip-introduction: Explanation about this section
+2. trip-calendar: calendar form and a table showing the values( tripDateStart, tripDateEnd, totalDays, RemainedDays)
+3. destionations: table with route data( Route, arrive, departure, days)
+4. get-city: form to select the city and button to start planning the route (this display the form)
+5. form: {
+   5.1 route-date: calendar form and the amount of days
+   5.2 add-taxi: check box to add taxi
+   5.3 add-airB (import AddAirB component)
+   5.4 add-chill (import AddChilling component)
+   }
+6. button (Add route)
+
+filteredTripPlan.ts
+
+1. typres (AirBnB, ChillOut, StartTrip, Route, Trip, PlanTripState, AddAirBnB). This type I added according to my needs. I export them in case that I need them in a component
+2. Create the initial state (initialState: PlanTripState)
+3. Function to calculate diference in days: calculateDays()
+4. Function to get the previos location so I can calculate taxi's price: previousLocation()
+5. reducers;{
+   5.1 addStartTrip
+   5.2 addTripEnd
+   5.3 addStartRoute
+   5.4 addTaxiPrice
+   5.5 addAirBnB
+   5.6 deleteAirBnB
+   5.7 addChillOut
+   5.8 deleteChill
+   5.9 addRoute
+   }
+
+**Note:**
+
+1. I use .toDateString(); method to display date, its a more firendleyed format
+2. Re render this page so the forms go back to default setting:
+   const [key, setKey] = useState(0)
+   const getRoute = () => {
+   dispatch(addRoute());
+   setDisplay1("none");
+   setKey(currentKey => currentKey + 1)
+   }
+
+   return(
+   <div key={key}...>
+   )
+
+3. I use a React component for the date:
+
+import { memo } from "react";
+
+const DatePicker = memo(({ selectedDate, onDateChange }: any) => {
+return <input type="date" value={selectedDate} onChange={onDateChange} />;
+});
+
+return(
+<DatePicker selectedDate={dateStart} onDateChange={getDateStart}
+)

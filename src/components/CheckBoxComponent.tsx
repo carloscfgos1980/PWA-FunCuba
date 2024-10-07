@@ -29,10 +29,9 @@ const CheckBoxComponent = ({ start, end, getTaxiPrice }: any) => {
           onChange={() => handleChange(price)}
         />
         <label className="form-check-label">
-          <span>
-            Trip {selectedTrip?.tripStart} to {selectedTrip?.tripEnd}{" "}
-          </span>
-          <span>price: {selectedTrip?.price}</span>
+          <p className="lead ms-3">
+            {`Taxi ${selectedTrip?.tripStart} to ${selectedTrip?.tripEnd} - $ ${selectedTrip?.price}`}
+          </p>
         </label>
       </div>
     </div>

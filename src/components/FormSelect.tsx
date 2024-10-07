@@ -1,10 +1,4 @@
-interface FormProps {
-  getCityId: any;
-  items: any;
-  children?: React.ReactNode;
-}
-
-const FormSelect = ({ getCityId, items }: FormProps) => {
+const FormSelect = ({ getCityId, items }: any) => {
   return (
     <select
       className="form-select"

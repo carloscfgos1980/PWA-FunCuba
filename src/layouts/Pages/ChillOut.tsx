@@ -18,7 +18,7 @@ type SelectedChill = {
 };
 const ChillOut = () => {
   const [cityId, setCityId] = useState<string>("Havana");
-  const [chillId, setChillId] = useState<string>("1");
+  const [chillId, setChillId] = useState<string>("domino");
 
   const getCityId = (value: string): void => setCityId(value);
 

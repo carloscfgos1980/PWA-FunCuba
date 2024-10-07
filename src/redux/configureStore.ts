@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import filteredFeedbacks from "./filteredFeedbacks";
-import filteredRoutes from "./filteredRoutes";
+// import filteredRoutes from "./filteredRoutes";
+import filteredTripPlan from "./filteredTripPlan";
 
 export const store = configureStore({
   reducer: {
     filteredFeedbacks,
-    filteredRoutes,
+    // filteredRoutes,
+    filteredTripPlan,
   },
 });
 

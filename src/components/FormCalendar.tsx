@@ -7,20 +7,16 @@ const DatePicker = memo(({ selectedDate, onDateChange }: any) => {
 const FormCalendar = ({
   dateStart,
   dateEnd,
+  getDateStart,
   getDateEnd,
-  calculateDays,
 }: any) => {
   return (
     <div className="d-flex">
-      <div>
-        <DatePicker selectedDate={dateStart} />
+      <div className="mx-1">
+        <DatePicker selectedDate={dateStart} onDateChange={getDateStart} />
       </div>
-      <div>
-        <DatePicker
-          selectedDate={dateEnd}
-          onDateChange={getDateEnd}
-          onClick={() => calculateDays(dateStart, dateEnd)}
-        />
+      <div className="mx-1">
+        <DatePicker selectedDate={dateEnd} onDateChange={getDateEnd} />
       </div>
     </div>
   );

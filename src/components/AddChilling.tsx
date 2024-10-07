@@ -2,8 +2,8 @@ import { useState } from "react";
 import chillingData from "./contentText/chillingData";
 import FormSelectAir from "./FormSelectAir";
 import { memo } from "react";
-import { addChillOut, ChillOut } from "../redux/filteredRoutes";
-import { useAppDispatch } from "../redux/configureStore";
+import { useAppDispatch, useAppSelector } from "../redux/configureStore";
+import { addChillOut, deleteChill } from "../redux/filteredTripPlan";
 
 const DatePicker = memo(({ selectedDate, onDateChange }: any) => {
   return <input type="date" value={selectedDate} onChange={onDateChange} />;
@@ -14,7 +14,10 @@ const AddChilling = ({ city }: any) => {
   const [date, setDate] = useState<string>(
     new Date().toISOString().slice(0, 10),
   );
-  const [chillOuts, setChillOuts] = useState<ChillOut[]>([]);
+  const [chillAmount, setChillAmount] = useState<string>("1");
+  const tripPlan = useAppSelector((state) => state.filteredTripPlan);
+  const chillOuts = tripPlan.route.chillOuts;
+  const totalChill = tripPlan.route.totalChill;
 
   const dispatch = useAppDispatch();
 
@@ -24,61 +27,85 @@ const AddChilling = ({ city }: any) => {
 
   const selectedChillOuts = chillingData.filter((chill) => chill.city === city);
   const seletedChill = selectedChillOuts.find((chill) => chill.id === chillId);
+  const price: any = seletedChill?.price;
+
+  const subTotal: number | undefined = price * Number(chillAmount);
 
   const getChillOuts = () => {
-    setChillOuts([
-      ...chillOuts,
-      {
-        id: seletedChill?.id,
-        name: seletedChill?.name,
-        price: seletedChill?.price,
-        dateChill: date,
-      },
-    ]);
     dispatch(
       addChillOut({
         id: seletedChill?.id,
         name: seletedChill?.name,
-        price: seletedChill?.price,
         dateChill: date,
-        totaChill: sum,
+        subTotal,
       }),
     );
   };
 
-  const deleteChill = (chillOut: string | undefined) => {
-    let newArray = chillOuts.filter((chill) => {
-      return chill.id === chillOut;
-    });
-    setChillOuts(newArray);
+  const deletingChill = (id: string | undefined) => {
+    dispatch(deleteChill(id));
   };
-  let sum = 0;
-  chillOuts.forEach((item: any) => (sum += item.price));
-  console.log("sum:", sum);
 
   return (
     <div>
-      <h1>Chilling</h1>
-      <div className="d-flex">
-        <FormSelectAir getAirName={getChillName} items={selectedChillOuts} />
-        <p>price: {seletedChill?.price}</p>
-        <div>
+      <h1 className="text-center">Let's have fun!</h1>
+      <div className="row justify-content-center align-content-center mx-2">
+        <div className="addChill col-6">
+          <FormSelectAir getAirName={getChillName} items={selectedChillOuts} />
+        </div>
+        <div className="col-5">
+          <select
+            className="form-select"
+            aria-label="Default select example"
+            defaultValue={"1"}
+            onChange={(e) => setChillAmount(e.target.value)}
+          >
+            <option value="1">Open this select menu</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <p className="col-3 mt-2">price: {price}</p>
+        <p className="col-3 mt-2">sub total: {subTotal}</p>
+        <div className="col-4 mt-2">
           <DatePicker selectedDate={date} onDateChange={getDate} />
         </div>
-        <button onClick={getChillOuts}>Add Chill out</button>
+        <button className="col-2 btn btn-success mt-2" onClick={getChillOuts}>
+          Add
+        </button>
       </div>
       <div>
-        {chillOuts.map((chill, index) => {
-          return (
-            <div className="d-flex" key={index}>
-              <p className="mx-2">name: {chill.name}</p>
-              <p className="mx-2">price: {chill.price}</p>
-              <p className="mx-2">date: {chill.dateChill}</p>
-              <button onClick={() => deleteChill(chill.id)}>X</button>
-            </div>
-          );
-        })}
-        <p>Total: {sum}</p>
+        <table className="table table-dark table-striped text-center my-3">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">amount</th>
+              <th scope="col">date</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {chillOuts.map((chill, index) => {
+              const dateChill: string = new Date(
+                chill.dateChill,
+              ).toDateString();
+              return (
+                <tr key={index}>
+                  <th className="mx-2">{chill.name}</th>
+                  <td className="mx-2">{chill.subTotal}</td>
+                  <td className="mx-2">{dateChill}</td>
+                  <td>
+                    <button onClick={() => deletingChill(chill.id)}>X</button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <p className="lead fw-bold">Total: {totalChill}</p>
       </div>
     </div>
   );
