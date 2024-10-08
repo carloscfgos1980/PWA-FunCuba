@@ -82,8 +82,8 @@ const initialState: PlanTripState = {
     id: "",
     routeStart: "Airport",
     routeEnd: "",
-    routeDateStart: "",
-    routeDateEnd: "",
+    routeDateStart: new Date().toISOString().slice(0, 10),
+    routeDateEnd: new Date().toISOString().slice(0, 10),
     days: 0,
     taxiPrice: 0,
     totalAir: 0,
@@ -119,13 +119,23 @@ export const filteredPlanTripSlice = createSlice({
   name: "filteredPlanTrip",
   initialState,
   reducers: {
-    addStartTrip: (state, action: PayloadAction<StartTrip>) => {
+    addStartTripDate: (state, action: PayloadAction<string>) => {
       state.trip.clientId = Number(new Date());
-      state.trip.tripDateStart = action.payload.dateStart;
-      state.trip.tripDateEnd = action.payload.dateEnd;
+      state.trip.tripDateStart = action.payload;
+      if (
+        new Date(state.trip.tripDateEnd) > new Date(state.trip.tripDateStart)
+      ) {
+        state.trip.tripDays = calculateDays(
+          state.trip.tripDateStart,
+          state.trip.tripDateEnd,
+        );
+      }
+    },
+    addStartTrip: (state, action: PayloadAction<string>) => {
+      state.trip.tripDateEnd = action.payload;
       state.trip.tripDays = calculateDays(
-        action.payload.dateStart,
-        action.payload.dateEnd,
+        state.trip.tripDateStart,
+        state.trip.tripDateEnd,
       );
     },
     addTripEnd: (state, action: PayloadAction<string>) => {
@@ -139,12 +149,23 @@ export const filteredPlanTripSlice = createSlice({
         state.route.id,
       ).slice(2);
     },
-    addStartRoute: (state, action: PayloadAction<StartTrip>) => {
-      state.route.routeDateStart = action.payload.dateStart;
-      state.route.routeDateEnd = action.payload.dateEnd;
+    addRouteDateStart: (state, action: PayloadAction<string>) => {
+      state.route.routeDateStart = action.payload;
+      if (
+        new Date(state.route.routeDateEnd) >
+        new Date(state.route.routeDateStart)
+      ) {
+        state.route.days = calculateDays(
+          state.route.routeDateStart,
+          state.route.routeDateEnd,
+        );
+      }
+    },
+    addStartRoute: (state, action: PayloadAction<string>) => {
+      state.route.routeDateEnd = action.payload;
       state.route.days = calculateDays(
-        action.payload.dateStart,
-        action.payload.dateEnd,
+        state.route.routeDateStart,
+        state.route.routeDateEnd,
       );
       state.addedDays = state.addedDays + state.route.days;
       state.remaninedDays = state.trip.tripDays - state.addedDays;
@@ -187,15 +208,19 @@ export const filteredPlanTripSlice = createSlice({
     },
     addRoute: (state) => {
       state.route.totalRoute = state.route.totalChill + state.route.totalAir;
-      state.trip.totalAmount = state.trip.totalAmount + state.route.totalRoute;
+      state.trip.totalAmount =
+        state.trip.totalAmount + state.route.totalRoute + state.route.taxiPrice;
       state.trip.routes.push(state.route);
+      state.route = initialState.route;
     },
   },
 });
 
 export const {
+  addStartTripDate,
   addStartTrip,
   addTripEnd,
+  addRouteDateStart,
   addStartRoute,
   addRoute,
   addTaxiPrice,

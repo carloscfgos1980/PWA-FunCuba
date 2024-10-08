@@ -7,7 +7,7 @@ import {
   CarouselCaption,
 } from "reactstrap";
 
-function FunCarousel({ items }: any) {
+function CarouselFun({ items }: any) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [animating, setAnimating] = useState<boolean>(false);
 
@@ -65,4 +65,4 @@ function FunCarousel({ items }: any) {
   );
 }
 
-export default FunCarousel;
+export default CarouselFun;

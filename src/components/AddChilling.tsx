@@ -4,6 +4,7 @@ import FormSelectAir from "./FormSelectAir";
 import { memo } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/configureStore";
 import { addChillOut, deleteChill } from "../redux/filteredTripPlan";
+import TableChill from "./TableChill";
 
 const DatePicker = memo(({ selectedDate, onDateChange }: any) => {
   return <input type="date" value={selectedDate} onChange={onDateChange} />;
@@ -69,7 +70,12 @@ const AddChilling = ({ city }: any) => {
           </select>
         </div>
         <p className="col-3 mt-2">price: {price}</p>
-        <p className="col-3 mt-2">sub total: {subTotal}</p>
+        {seletedChill ? (
+          <p className="col-3 mt-2">sub total: {subTotal}</p>
+        ) : (
+          <p className="col-3 mt-2">sub total: 0</p>
+        )}
+
         <div className="col-4 mt-2">
           <DatePicker selectedDate={date} onDateChange={getDate} />
         </div>
@@ -78,33 +84,7 @@ const AddChilling = ({ city }: any) => {
         </button>
       </div>
       <div>
-        <table className="table table-dark table-striped text-center my-3">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">amount</th>
-              <th scope="col">date</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {chillOuts.map((chill, index) => {
-              const dateChill: string = new Date(
-                chill.dateChill,
-              ).toDateString();
-              return (
-                <tr key={index}>
-                  <th className="mx-2">{chill.name}</th>
-                  <td className="mx-2">{chill.subTotal}</td>
-                  <td className="mx-2">{dateChill}</td>
-                  <td>
-                    <button onClick={() => deletingChill(chill.id)}>X</button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <TableChill items={chillOuts} deletingChill={deletingChill} />
         <p className="lead fw-bold">Total: {totalChill}</p>
       </div>
     </div>

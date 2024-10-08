@@ -236,3 +236,9 @@ return <input type="date" value={selectedDate} onChange={onDateChange} />;
 return(
 <DatePicker selectedDate={dateStart} onDateChange={getDateStart}
 )
+
+# 9/10/2024
+
+# TripPlan
+
+I place the table in a separate components, it looks cleaner and also I plan to re use in the modal for the trip info

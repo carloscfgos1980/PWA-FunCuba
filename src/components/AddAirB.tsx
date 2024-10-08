@@ -5,15 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { addAirBnB, deleteAirBnB } from "../redux/filteredTripPlan";
 import { useAppSelector } from "../redux/configureStore";
-// import chillingData from "./contentText/chillingData";
-
-// type SeletectedAirB = {
-//   airId: string;
-//   name: string | undefined;
-//   price: number;
-//   hab: number;
-//   subTotal: number;
-// };
+import TableAir from "./TableAir";
 
 const AddAirB = ({ city, daysRoute }: any) => {
   const [airId, setAirId] = useState<string>("Analsa");
@@ -82,7 +74,7 @@ const AddAirB = ({ city, daysRoute }: any) => {
             onChange={(e) => setHab(e.target.value)}
           >
             <option value="DEFAULT" disabled>
-              Rooms amount
+              Rooms
             </option>
             {arrayHab.map((item: any, index: number) => {
               return (
@@ -104,30 +96,7 @@ const AddAirB = ({ city, daysRoute }: any) => {
         </button>
       </div>
       <div>
-        <table className="table table-dark table-striped text-center my-3">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">rooms</th>
-              <th scope="col">amount</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {airBnBs.map((air, index) => {
-              return (
-                <tr key={index}>
-                  <th scope="row">{air.name}</th>
-                  <td className="mx-2">{air.hab}</td>
-                  <td className="mx-2">{air.subTotal}</td>
-                  <td>
-                    <button onClick={() => deleteAirB(air.id)}>X</button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <TableAir items={airBnBs} deleteAirB={deleteAirB} />
         <p className="lead fw-bold">Total: {sum}</p>
       </div>
     </div>

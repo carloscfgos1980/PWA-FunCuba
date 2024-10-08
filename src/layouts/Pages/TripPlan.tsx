@@ -4,8 +4,10 @@ import citiesData from "../../components/contentText/citiesData";
 import FormCalendar from "../../components/FormCalendar";
 import {
   addRoute,
+  addRouteDateStart,
   addStartRoute,
   addStartTrip,
+  addStartTripDate,
   addTaxiPrice,
   addTripEnd,
 } from "../../redux/filteredTripPlan";
@@ -14,6 +16,7 @@ import CheckBoxComponent from "../../components/CheckBoxComponent";
 import AddAirB from "../../components/AddAirB";
 import AddChilling from "../../components/AddChilling";
 import pagesContent from "../../components/contentText/pagesContent";
+import ModalTrip from "../../components/ModalTrip";
 
 const TripPlan = () => {
   const [dateStart, setDateStart] = useState<string>(
@@ -24,27 +27,27 @@ const TripPlan = () => {
   const [key, setKey] = useState(0);
   const TripText1 = pagesContent.tripPlan.intro1;
   const TripText2 = pagesContent.tripPlan.intro2;
+  const [modal, setModal] = useState(false);
+
+  const toggle = (): void => setModal(!modal);
 
   const dispatch = useAppDispatch();
 
-  const getDateStart = (e: any) => setDateStart(e.target.value);
-
-  const getDateTripEnd = (e: any) => {
-    dispatch(
-      addStartTrip({
-        dateStart: dateStart,
-        dateEnd: e.target.value,
-      }),
-    );
+  const getDateTripStart = (e: any) => {
+    // setDateStart(e.target.value);
+    dispatch(addStartTripDate(e.target.value));
   };
 
+  const getDateTripEnd = (e: any) => {
+    dispatch(addStartTrip(e.target.value));
+  };
+
+  const getDateRouteStart = (e: any) => {
+    // setDateStart(e.target.value);
+    dispatch(addRouteDateStart(e.target.value));
+  };
   const getDateRouteEnd = (e: any) => {
-    dispatch(
-      addStartRoute({
-        dateStart: dateStart,
-        dateEnd: e.target.value,
-      }),
-    );
+    dispatch(addStartRoute(e.target.value));
   };
 
   const getCityId = (value: string): void => setCityId(value);
@@ -64,7 +67,7 @@ const TripPlan = () => {
   };
 
   const tripPlan = useAppSelector((state) => state.filteredTripPlan);
-  console.log("trip plan:", tripPlan.trip);
+  // console.log("route:", tripPlan.route);
   const tripDays = tripPlan.trip.tripDays;
   const routeDays = tripPlan.route.days;
   const routes = tripPlan.trip.routes;
@@ -73,12 +76,6 @@ const TripPlan = () => {
   ).toDateString();
   const tripDateEnd: string = new Date(
     tripPlan.trip.tripDateEnd,
-  ).toDateString();
-  const routeDateStart: string = new Date(
-    tripPlan.route.routeDateStart,
-  ).toDateString();
-  const routeDateEnd: string = new Date(
-    tripPlan.route.routeDateEnd,
   ).toDateString();
 
   const getTaxiPrice = (value: number) => {
@@ -97,7 +94,7 @@ const TripPlan = () => {
           <div className="trip-calendar mt-3">
             <h1 className="text-center">Let's start. Select date</h1>
             <FormCalendar
-              getDateStart={getDateStart}
+              getDateStart={getDateTripStart}
               getDateEnd={getDateTripEnd}
             />
             <table className="table table-dark table-striped text-center my-3">
@@ -132,6 +129,12 @@ const TripPlan = () => {
               </thead>
               <tbody>
                 {routes.map((route, index) => {
+                  const routeDateStart = new Date(
+                    route.routeDateStart,
+                  ).toDateString();
+                  const routeDateEnd = new Date(
+                    route.routeDateEnd,
+                  ).toDateString();
                   return (
                     <tr key={index}>
                       <th className="mx-2">{route.routeEnd}</th>
@@ -153,7 +156,7 @@ const TripPlan = () => {
           <div className="form" style={{ display: display1 }}>
             <div className="route-date d-flex justify-content-end mt-3 me-3">
               <FormCalendar
-                getDateStart={getDateStart}
+                getDateStart={getDateRouteStart}
                 getDateEnd={getDateRouteEnd}
               />
               <p className="mx-3">amount days: {routeDays}</p>
@@ -174,6 +177,9 @@ const TripPlan = () => {
             <button className="btn btn-success" onClick={getRoute}>
               Add Route
             </button>
+          </div>
+          <div className="modal-trip my-3">
+            <ModalTrip toggle={toggle} modal={modal} />
           </div>
         </div>
       </div>

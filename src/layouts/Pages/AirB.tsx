@@ -4,7 +4,7 @@ import FormSelect from "../../components/FormSelect";
 import CarouselAir from "../../components/CarouselAir";
 import citiesData from "../../components/contentText/citiesData";
 import airData from "../../components/contentText/airData";
-import FunModal from "../../components/FunModal";
+import ModalFun from "../../components/ModalFun";
 import havana from "../../components/imgCities/havana.jpg";
 import pagesContent from "../../components/contentText/pagesContent";
 
@@ -64,7 +64,7 @@ const AirB = () => {
       <div className="row justify-content-center">
         <Cuba img={havana} text={pagesContent.cuba} />
         <FormSelect getCityId={getCityId} items={citiesData} />
-        <FunModal
+        <ModalFun
           modal={modal}
           toggle={toggle}
           name={selectedAirB.name}
