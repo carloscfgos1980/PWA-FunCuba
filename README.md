@@ -242,3 +242,15 @@ return(
 # TripPlan
 
 I place the table in a separate components, it looks cleaner and also I plan to re use in the modal for the trip info
+
+https://mui.com/material-ui/getting-started/installation/
+
+package.json:
+"peerDependencies": {
+"react": "^17.0.0 || ^18.0.0",
+"react-dom": "^17.0.0 || ^18.0.0"
+},
+terminal:
+npm install @mui/material @emotion/react @emotion/styled
+
+I applied this model coz the model component from reactstrap was giving me a warning. I need to move the ModelFun to this sort of model as well

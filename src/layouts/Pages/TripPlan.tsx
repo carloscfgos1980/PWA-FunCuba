@@ -19,9 +19,6 @@ import pagesContent from "../../components/contentText/pagesContent";
 import ModalTrip from "../../components/ModalTrip";
 
 const TripPlan = () => {
-  const [dateStart, setDateStart] = useState<string>(
-    new Date().toISOString().slice(0, 10),
-  );
   const [cityId, setCityId] = useState<string>("1");
   const [display1, setDisplay1] = useState<string>("none");
   const [key, setKey] = useState(0);
@@ -34,7 +31,6 @@ const TripPlan = () => {
   const dispatch = useAppDispatch();
 
   const getDateTripStart = (e: any) => {
-    // setDateStart(e.target.value);
     dispatch(addStartTripDate(e.target.value));
   };
 
@@ -43,7 +39,6 @@ const TripPlan = () => {
   };
 
   const getDateRouteStart = (e: any) => {
-    // setDateStart(e.target.value);
     dispatch(addRouteDateStart(e.target.value));
   };
   const getDateRouteEnd = (e: any) => {
