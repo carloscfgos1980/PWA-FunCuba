@@ -254,3 +254,10 @@ terminal:
 npm install @mui/material @emotion/react @emotion/styled
 
 I applied this model coz the model component from reactstrap was giving me a warning. I need to move the ModelFun to this sort of model as well
+
+# 9/10/2024
+
+1. I create 3 tables to dismplay information in TripPlan and in ModalTrip:
+   TableGeneral, TableAir, TableChill
+
+2. TripPlan.tsx. Crate a useHook variable to edit and pass it down to TableAir, TableChill so when I use this table in edit, it won't display delete (X) button

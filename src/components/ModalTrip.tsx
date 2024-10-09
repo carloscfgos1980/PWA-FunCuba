@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useAppSelector } from "../redux/configureStore";
+import TableGeneral from "./TableGeneral";
 
 const style = {
   position: "absolute",
@@ -45,24 +46,12 @@ const ModalTrip = ({ modal, toggle }: any) => {
           </div>
           <div>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <table className="table table-dark table-striped text-center my-3">
-                <thead>
-                  <tr>
-                    <th scope="col">Arrive</th>
-                    <th scope="col">Departure</th>
-                    <th scope="col">Days</th>
-                    <th scope="col">Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th className="mx-2">{tripPlan.trip.tripDateStart}</th>
-                    <th className="mx-2">{tripPlan.trip.tripDateEnd}</th>
-                    <th className="mx-2">{tripPlan.trip.tripDays}</th>
-                    <th className="mx-2">{tripPlan.trip.totalAmount}</th>
-                  </tr>
-                </tbody>
-              </table>
+              <TableGeneral
+                arrive={tripPlan.trip.tripDateStart}
+                departure={tripPlan.trip.tripDateEnd}
+                days={tripPlan.trip.tripDays}
+                amount={tripPlan.trip.totalAmount}
+              />
             </Typography>
           </div>
         </Box>

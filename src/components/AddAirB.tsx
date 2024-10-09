@@ -7,7 +7,7 @@ import { addAirBnB, deleteAirBnB } from "../redux/filteredTripPlan";
 import { useAppSelector } from "../redux/configureStore";
 import TableAir from "./TableAir";
 
-const AddAirB = ({ city, daysRoute }: any) => {
+const AddAirB = ({ city, daysRoute, edit }: any) => {
   const [airId, setAirId] = useState<string>("Analsa");
   const [hab, setHab] = useState<string>("1");
 
@@ -96,7 +96,7 @@ const AddAirB = ({ city, daysRoute }: any) => {
         </button>
       </div>
       <div>
-        <TableAir items={airBnBs} deleteAirB={deleteAirB} />
+        <TableAir items={airBnBs} deleteAirB={deleteAirB} edit={edit} />
         <p className="lead fw-bold">Total: {sum}</p>
       </div>
     </div>

@@ -49,6 +49,12 @@ const taxiData = [
   },
   {
     id: 9,
+    tripStart: "Viñales",
+    tripEnd: "Cienfuegos",
+    price: 250,
+  },
+  {
+    id: 10,
     tripStart: "Cienfuegos",
     tripEnd: "Trinidad",
     price: 80,

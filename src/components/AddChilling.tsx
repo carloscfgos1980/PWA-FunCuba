@@ -10,7 +10,7 @@ const DatePicker = memo(({ selectedDate, onDateChange }: any) => {
   return <input type="date" value={selectedDate} onChange={onDateChange} />;
 });
 
-const AddChilling = ({ city }: any) => {
+const AddChilling = ({ city, edit }: any) => {
   const [chillId, setChillId] = useState<string>("domino");
   const [date, setDate] = useState<string>(
     new Date().toISOString().slice(0, 10),
@@ -84,7 +84,11 @@ const AddChilling = ({ city }: any) => {
         </button>
       </div>
       <div>
-        <TableChill items={chillOuts} deletingChill={deletingChill} />
+        <TableChill
+          items={chillOuts}
+          deletingChill={deletingChill}
+          edit={edit}
+        />
         <p className="lead fw-bold">Total: {totalChill}</p>
       </div>
     </div>

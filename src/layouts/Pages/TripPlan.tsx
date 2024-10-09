@@ -24,7 +24,8 @@ const TripPlan = () => {
   const [key, setKey] = useState(0);
   const TripText1 = pagesContent.tripPlan.intro1;
   const TripText2 = pagesContent.tripPlan.intro2;
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState<boolean>(false);
+  const [edit, setEdit] = useState<boolean>(false);
 
   const toggle = (): void => setModal(!modal);
 
@@ -164,10 +165,10 @@ const TripPlan = () => {
               />
             </div>
             <div className="add-airB">
-              <AddAirB city={city} daysRoute={routeDays} />
+              <AddAirB city={city} daysRoute={routeDays} edit={edit} />
             </div>
             <div className="add-chill">
-              <AddChilling city={city} />
+              <AddChilling city={city} edit={edit} />
             </div>
             <button className="btn btn-success" onClick={getRoute}>
               Add Route
