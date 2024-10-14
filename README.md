@@ -19,6 +19,8 @@ npm install --save bootstrap
 npm i react-router-dom
 npm i bootstrap-icons
 
+- Latelly I unistall reactstrap coz the model component was giving a warning of decapricating feature in te new future
+
 # 5. Install prettier (convert into clean code for deploying in github)
 
 5.1 Install package
@@ -257,7 +259,83 @@ I applied this model coz the model component from reactstrap was giving me a war
 
 # 9/10/2024
 
-1. I create 3 tables to dismplay information in TripPlan and in ModalTrip:
+1. I create 3 tables to display information in TripPlan and in ModalTrip:
    TableGeneral, TableAir, TableChill
 
 2. TripPlan.tsx. Crate a useHook variable to edit and pass it down to TableAir, TableChill so when I use this table in edit, it won't display delete (X) button
+
+# 14/10/2024
+
+Nice rest in the weekend. Got up early and create the form for the client personal data
+
+1. filteredTripPlan.ts:
+
+   1.1 Create the type:
+   export type Client = {
+   name: string;
+   lastName: string;
+   country: string;
+   email: string;
+   }
+
+   1.2 Initial state update:
+   trip: {
+   ...
+   clientData: {
+   name: '',
+   lastName: '',
+   country: '',
+   email: '',
+   },
+   ...
+   },
+
+1.3 reducer:
+addClient: (state, action: PayloadAction<Client>) => {
+state.trip.clientData = action.payload;
+},
+
+2. Create component for this form (FormClient.tsx)
+
+2.1 Create a hook with a variable as a object
+const [status, setStatus] = useState<Client>({
+name: '',
+lastName: '',
+country: '',
+email: '',
+});
+
+2.2 Create a function that will capture the value of the forms
+const updateInput = (e:any) => {
+setStatus({
+...status,
+[e.target.name]: e.target.value
+})
+}
+
+2.3 Create an object that I will dispatch to the store
+
+    const clientData = {
+        name: status.name,
+        lastName: status.lastName,
+        country: status.country,
+        email: status.email
+
+    }
+
+2.4 Form from Bootstrap (lin 35-55). Here I place the onChange eventlistener in every input in order to catch the values
+
+2.5 Create the function to dispatch value
+const addingClient = () => {
+dispatch(addClient(clientData));
+}
+
+2.6 Button to fire the dispatch function
+
+<div className="text-end mt-3 me-4">
+<h3 className="btn btn-secundary px-5 bg-dark text-light"
+                    onClick={addingClient} 
+                    >
+Submit
+</h3>
+</div>

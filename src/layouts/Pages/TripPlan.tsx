@@ -10,6 +10,8 @@ import {
   addStartTripDate,
   addTaxiPrice,
   addTripEnd,
+  commitChanges,
+  editRoute,
 } from "../../redux/filteredTripPlan";
 import FormSelect from "../../components/FormSelect";
 import CheckBoxComponent from "../../components/CheckBoxComponent";
@@ -17,6 +19,7 @@ import AddAirB from "../../components/AddAirB";
 import AddChilling from "../../components/AddChilling";
 import pagesContent from "../../components/contentText/pagesContent";
 import ModalTrip from "../../components/ModalTrip";
+import FormClient from "../../components/FormClient";
 
 const TripPlan = () => {
   const [cityId, setCityId] = useState<string>("1");
@@ -63,7 +66,6 @@ const TripPlan = () => {
   };
 
   const tripPlan = useAppSelector((state) => state.filteredTripPlan);
-  // console.log("route:", tripPlan.route);
   const tripDays = tripPlan.trip.tripDays;
   const routeDays = tripPlan.route.days;
   const routes = tripPlan.trip.routes;
@@ -78,6 +80,20 @@ const TripPlan = () => {
     dispatch(addTaxiPrice(value));
   };
 
+  const editingRoute = (id: string) => {
+    let route = tripPlan.trip.routes.find((route) => route.id === id);
+    dispatch(editRoute(route));
+    setModal(!modal);
+    setEdit(true);
+    setDisplay1("inline-block");
+  };
+
+  const comittingChanges = () => {
+    dispatch(commitChanges());
+    setEdit(false);
+    setDisplay1("none");
+  };
+
   return (
     <div key={key} className="container-fluid bg-light py-3">
       <div className="row justify-content-center">
@@ -86,6 +102,9 @@ const TripPlan = () => {
             <h1 className="text-center">Trip Plan</h1>
             <p className="lead">{TripText1}</p>
             <p className="lead">{TripText2}</p>
+          </div>
+          <div className="clientData">
+            <FormClient />
           </div>
           <div className="trip-calendar mt-3">
             <h1 className="text-center">Let's start. Select date</h1>
@@ -143,12 +162,14 @@ const TripPlan = () => {
               </tbody>
             </table>
           </div>
-          <div className="get-city d-flex">
-            <FormSelect getCityId={getCityId} items={citiesData} />
-            <button className="btn btn-success" onClick={getDestination}>
-              select destination
-            </button>
-          </div>
+          {edit === false && (
+            <div className="get-city d-flex">
+              <FormSelect getCityId={getCityId} items={citiesData} />
+              <button className="btn btn-success" onClick={getDestination}>
+                select destination
+              </button>
+            </div>
+          )}
           <div className="form" style={{ display: display1 }}>
             <div className="route-date d-flex justify-content-end mt-3 me-3">
               <FormCalendar
@@ -165,17 +186,27 @@ const TripPlan = () => {
               />
             </div>
             <div className="add-airB">
-              <AddAirB city={city} daysRoute={routeDays} edit={edit} />
+              <AddAirB city={city} daysRoute={routeDays} modal={modal} />
             </div>
             <div className="add-chill">
-              <AddChilling city={city} edit={edit} />
+              <AddChilling city={city} modal={modal} />
             </div>
-            <button className="btn btn-success" onClick={getRoute}>
-              Add Route
-            </button>
+            {edit === false ? (
+              <button className="btn btn-success" onClick={getRoute}>
+                Add Route
+              </button>
+            ) : (
+              <button className="btn btn-success" onClick={comittingChanges}>
+                Commit
+              </button>
+            )}
           </div>
           <div className="modal-trip my-3">
-            <ModalTrip toggle={toggle} modal={modal} />
+            <ModalTrip
+              toggle={toggle}
+              modal={modal}
+              editingRoute={editingRoute}
+            />
           </div>
         </div>
       </div>

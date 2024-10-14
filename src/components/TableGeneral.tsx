@@ -1,6 +1,6 @@
 const TableGeneral = ({ arrive, departure, days, amount }: any) => {
   return (
-    <table className="table table-dark table-striped text-center my-3">
+    <table className="table table-light table-striped text-center my-3">
       <thead>
         <tr>
           <th scope="col">Arrive</th>
@@ -11,10 +11,10 @@ const TableGeneral = ({ arrive, departure, days, amount }: any) => {
       </thead>
       <tbody>
         <tr>
-          <th className="mx-2">{arrive}</th>
-          <th className="mx-2">{departure}</th>
-          <th className="mx-2">{days}</th>
-          <th className="mx-2">{amount}</th>
+          <td className="mx-2">{arrive}</td>
+          <td className="mx-2">{departure}</td>
+          <td className="mx-2">{days}</td>
+          <td className="mx-2">$ {amount}</td>
         </tr>
       </tbody>
     </table>

@@ -35,8 +35,16 @@ type Route = {
   chillOuts: ChillOut[];
 };
 
+export type Client = {
+  name: string;
+  lastName: string;
+  country: string;
+  email: string;
+};
+
 type Trip = {
-  clientId: number;
+  reservationId: number;
+  clientData: Client;
   tripDateStart: string;
   tripDateEnd: string;
   tripDays: number;
@@ -93,7 +101,13 @@ const initialState: PlanTripState = {
     chillOuts: [],
   },
   trip: {
-    clientId: 0,
+    reservationId: 0,
+    clientData: {
+      name: "",
+      lastName: "",
+      country: "",
+      email: "",
+    },
     tripDateStart: new Date().toISOString().slice(0, 10),
     tripDateEnd: new Date().toISOString().slice(0, 10),
     tripDays: 0,
@@ -120,7 +134,7 @@ export const filteredPlanTripSlice = createSlice({
   initialState,
   reducers: {
     addStartTripDate: (state, action: PayloadAction<string>) => {
-      state.trip.clientId = Number(new Date());
+      state.trip.reservationId = Number(new Date());
       state.trip.tripDateStart = action.payload;
       if (
         new Date(state.trip.tripDateEnd) > new Date(state.trip.tripDateStart)
@@ -179,7 +193,8 @@ export const filteredPlanTripSlice = createSlice({
       state.airBnB.hab = action.payload.hab;
       state.airBnB.price = action.payload.price;
       state.airBnB.subTotal = action.payload.subTotal;
-      state.route.airBnBs.push(state.airBnB);
+      // state.route.airBnBs.push(state.airBnB);
+      state.route.airBnBs = [...state.route.airBnBs, state.airBnB];
       let sum = 0;
       state.route.airBnBs.forEach((item) => (sum += item.subTotal));
       state.route.totalAir = sum;
@@ -195,7 +210,8 @@ export const filteredPlanTripSlice = createSlice({
       state.chillOut.name = action.payload.name;
       state.chillOut.dateChill = action.payload.dateChill;
       state.chillOut.subTotal = action.payload.subTotal;
-      state.route.chillOuts.push(state.chillOut);
+      // state.route.chillOuts.push(state.chillOut);
+      state.route.chillOuts = [...state.route.chillOuts, state.chillOut];
       let sum = 0;
       state.route.chillOuts.forEach((item) => (sum += item.subTotal));
       state.route.totalChill = sum;
@@ -210,8 +226,32 @@ export const filteredPlanTripSlice = createSlice({
       state.route.totalRoute = state.route.totalChill + state.route.totalAir;
       state.trip.totalAmount =
         state.trip.totalAmount + state.route.totalRoute + state.route.taxiPrice;
-      state.trip.routes.push(state.route);
+      // state.trip.routes.push(state.route);
+      state.trip.routes = [...state.trip.routes, state.route];
       state.route = initialState.route;
+    },
+    deleteRoute: (state, action: PayloadAction<string | undefined>) => {
+      let newArray = state.trip.routes.filter((route) => {
+        return route.id !== action.payload;
+      });
+      state.trip.routes = newArray;
+    },
+    editRoute: (state, action: PayloadAction<any>) => {
+      state.route = action.payload;
+    },
+    commitChanges: (state) => {
+      const id = state.route.id;
+      let array = state.trip.routes.map((route) => {
+        if (route.id === id) {
+          route = state.route;
+        }
+        return route;
+      });
+      state.trip.routes = array;
+      state.route = initialState.route;
+    },
+    addClient: (state, action: PayloadAction<Client>) => {
+      state.trip.clientData = action.payload;
     },
   },
 });
@@ -228,6 +268,10 @@ export const {
   deleteAirBnB,
   addChillOut,
   deleteChill,
+  deleteRoute,
+  editRoute,
+  commitChanges,
+  addClient,
 } = filteredPlanTripSlice.actions;
 
 export default filteredPlanTripSlice.reducer;
