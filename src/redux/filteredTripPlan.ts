@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export type AirBnB = {
   id: string;
@@ -53,6 +54,7 @@ type Trip = {
 };
 type PlanTripState = {
   remaninedDays: number | undefined;
+  postSuccessful: boolean;
   addedDays: any;
   destinations: string[];
   airBnB: AirBnB;
@@ -69,8 +71,22 @@ type AddAirBnB = {
   subTotal: number;
 };
 
+const url = "http://localhost:9000/trips";
+
+const saveTrip = async (trip: Trip) => {
+  try {
+    const response = await axios.post(url, trip);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const saveTripAsync = createAsyncThunk("trips/saveTripsAsync", saveTrip);
+
 const initialState: PlanTripState = {
   remaninedDays: 0,
+  postSuccessful: false,
   addedDays: 0,
   destinations: ["0-Airport"],
   airBnB: {
@@ -134,7 +150,6 @@ export const filteredPlanTripSlice = createSlice({
   initialState,
   reducers: {
     addStartTripDate: (state, action: PayloadAction<string>) => {
-      state.trip.reservationId = Number(new Date());
       state.trip.tripDateStart = action.payload;
       if (
         new Date(state.trip.tripDateEnd) > new Date(state.trip.tripDateStart)
@@ -251,8 +266,14 @@ export const filteredPlanTripSlice = createSlice({
       state.route = initialState.route;
     },
     addClient: (state, action: PayloadAction<Client>) => {
+      state.trip.reservationId = Number(new Date());
       state.trip.clientData = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(saveTripAsync.fulfilled, (state) => {
+      state.postSuccessful = true;
+    });
   },
 });
 

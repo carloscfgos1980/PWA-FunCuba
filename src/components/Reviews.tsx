@@ -14,7 +14,7 @@ const reviews = ({ feedback }: any) => {
   };
   return (
     <div className="align-items-stretch">
-      <h3 className="text-center">{stars(feedback.score)}</h3>
+      <h3 className="text-center">{stars(feedback.rate)}</h3>
       <p style={{ height: "100px" }}>{feedback.comment}</p>
       <div className="mt-4">
         <span>{`${feedback.author} (${feedback.country})`}</span>

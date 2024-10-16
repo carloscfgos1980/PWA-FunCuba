@@ -5,7 +5,8 @@ import { useAppDispatch, useAppSelector } from "../redux/configureStore";
 import TableGeneral from "./TableGeneral";
 import TableAir from "./TableAir";
 import TableChill from "./TableChill";
-import { deleteRoute } from "../redux/filteredTripPlan";
+import { deleteRoute, saveTripAsync } from "../redux/filteredTripPlan";
+import { Link } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -22,12 +23,16 @@ const style = {
 };
 
 const ModalTrip = ({ modal, toggle, editingRoute }: any) => {
-  const tripPlan = useAppSelector((state) => state.filteredTripPlan);
+  const tripPlan: any = useAppSelector((state) => state.filteredTripPlan);
   const routes = tripPlan.trip.routes;
   const dispatch = useAppDispatch();
 
   const deletingRoute = (id: string) => {
     dispatch(deleteRoute(id));
+  };
+
+  const savingTrip = () => {
+    dispatch(saveTripAsync(tripPlan.trip));
   };
 
   return (
@@ -47,16 +52,18 @@ const ModalTrip = ({ modal, toggle, editingRoute }: any) => {
               id="modal-modal-title"
               variant="h6"
               component="h2"
-              className="d-flex justify-content-between mx-5"
+              className=" mx-5"
             >
-              <p className="display-3 mt-5">TRIP</p>
-              <p
-                className="lead mt-3"
-                onClick={toggle}
-                style={{ cursor: "pointer" }}
-              >
-                X
-              </p>
+              <div className="d-flex justify-content-between">
+                <p className="display-3 mt-5">TRIP</p>
+                <p
+                  className="lead mt-3"
+                  onClick={toggle}
+                  style={{ cursor: "pointer" }}
+                >
+                  X
+                </p>
+              </div>
             </Typography>
           </div>
           <div className="routes">
@@ -78,7 +85,7 @@ const ModalTrip = ({ modal, toggle, editingRoute }: any) => {
                   amount={tripPlan.trip.totalAmount}
                 />
               </div>
-              {routes.map((route, index: number) => {
+              {routes.map((route: any, index: number) => {
                 const airB = route.airBnBs;
                 const chill = route.chillOuts;
                 return (
@@ -124,6 +131,13 @@ const ModalTrip = ({ modal, toggle, editingRoute }: any) => {
                 );
               })}
             </Typography>
+          </div>
+          <div className="postData">
+            <Link to="/feedback">
+              <button className="btn btn-success" onClick={savingTrip}>
+                SEND
+              </button>
+            </Link>
           </div>
         </Box>
       </Modal>

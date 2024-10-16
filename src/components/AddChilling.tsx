@@ -1,6 +1,6 @@
 import { useState } from "react";
 import chillingData from "./contentText/chillingData";
-import FormSelectAir from "./FormSelectAir";
+import FormSelectItem from "./FormSelectItem";
 import { memo } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/configureStore";
 import { addChillOut, deleteChill } from "../redux/filteredTripPlan";
@@ -52,7 +52,7 @@ const AddChilling = ({ city, modal }: any) => {
       <h1 className="text-center">Let's have fun!</h1>
       <div className="row justify-content-center align-content-center mx-2">
         <div className="addChill col-6">
-          <FormSelectAir getAirName={getChillName} items={selectedChillOuts} />
+          <FormSelectItem getItemId={getChillName} items={selectedChillOuts} />
         </div>
         <div className="col-5">
           <select
@@ -79,10 +79,13 @@ const AddChilling = ({ city, modal }: any) => {
         <div className="col-4 mt-2">
           <DatePicker selectedDate={date} onDateChange={getDate} />
         </div>
-        <button className="col-2 btn btn-success mt-2" onClick={getChillOuts}>
-          Add
-        </button>
       </div>
+      <button
+        className="col-2 btn btn-success mt-2 float-end"
+        onClick={getChillOuts}
+      >
+        Add
+      </button>
       <div>
         <TableChill
           items={chillOuts}

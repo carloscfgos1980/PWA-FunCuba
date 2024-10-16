@@ -95,7 +95,7 @@ const TripPlan = () => {
   };
 
   return (
-    <div key={key} className="container-fluid bg-light py-3">
+    <div key={key} className="container-fluid bg-light py-3 px-4">
       <div className="row justify-content-center">
         <div className="col-sm-8">
           <div className="trip-introduction">
@@ -104,7 +104,7 @@ const TripPlan = () => {
             <p className="lead">{TripText2}</p>
           </div>
           <div className="clientData">
-            <FormClient />
+            <FormClient toggle={toggle} />
           </div>
           <div className="trip-calendar mt-3">
             <h1 className="text-center">Let's start. Select date</h1>
@@ -192,7 +192,7 @@ const TripPlan = () => {
               <AddChilling city={city} modal={modal} />
             </div>
             {edit === false ? (
-              <button className="btn btn-success" onClick={getRoute}>
+              <button className="btn btn-success float-end" onClick={getRoute}>
                 Add Route
               </button>
             ) : (

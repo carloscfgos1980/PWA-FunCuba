@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { addClient, Client } from "../redux/filteredTripPlan";
 
-const FormClient = () => {
+const FormClient = ({ toggle }: any) => {
   const dispatch = useDispatch();
   const [status, setStatus] = useState<Client>({
     name: "",
@@ -27,6 +27,7 @@ const FormClient = () => {
   };
   const addingClient = () => {
     dispatch(addClient(clientData));
+    toggle();
   };
 
   return (
@@ -34,7 +35,7 @@ const FormClient = () => {
       <h1 className="display-5 text-center mt-2 mb-4">Fill ur data</h1>
       <Form className="container-fluid">
         <div className="row justify-content-around align-items-end">
-          <div className="form-floating col-5 col-sm-2 my-2">
+          <div className="form-floating col-6 col-sm-2 my-2">
             <input
               name="name"
               type="text"
@@ -45,7 +46,7 @@ const FormClient = () => {
             />
             <label htmlFor="floatingName">Your name</label>
           </div>
-          <div className="form-floating col-5 col-sm-2 my-2">
+          <div className="form-floating col-6 col-sm-2 my-2">
             <input
               name="lastName"
               type="text"
@@ -56,7 +57,7 @@ const FormClient = () => {
             />
             <label htmlFor="floatingLastName">Last Name</label>
           </div>
-          <div className="form-floating col-4 col-sm-2 my-2">
+          <div className="form-floating col-5 col-sm-2 my-2">
             <input
               name="country"
               type="text"
@@ -67,7 +68,7 @@ const FormClient = () => {
             />
             <label htmlFor="floatingCountry">Country</label>
           </div>
-          <div className="form-floating col-6 col-sm-4 my-2">
+          <div className="form-floating col-7 col-sm-4 my-2">
             <input
               name="email"
               type="email"

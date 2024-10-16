@@ -339,3 +339,28 @@ dispatch(addClient(clientData));
 Submit
 </h3>
 </div>
+
+3. Post Trip.
+
+- This was easy, what took me a lot of time was to debug the review route. It is working now. I had to create another file .json so O could post in trips endpoint:
+  http://localhost:9000/trips
+
+CLI:
+npx json-server --watch data/tripDB.json --port 9000
+
+Now the reviews are:
+http://localhost:8000/feedbacks
+npx json-server --watch data/db.json --port 8000
+
+the summit button for the data is at the end of ModelTrip
+
+# 15/10/2024
+
+**Feedback section**
+This part was kinda smooth. I only was stuck when I call the async function to post the feedback, React was acting weird in FeedField.tesx component. I got a type error: it doesn't not allowed me to place an argument when I called the function is is very weird coz I made an experiement and I called a function that it was working in a different component and I got the same error. I solved by moving the dispatch to the root page (Feedback.tsx)
+
+Feedback.tsx contains is mostly forms. Some I placed in this root page and another place in FeedField component.
+
+FeedsField.tsx. I rendered the elements with a condiction based in the select type of feedback (airBnB, chill out or Fun Cuba which is more general)
+
+the post function of review is place in the store (filteredFeedbacks.ts)

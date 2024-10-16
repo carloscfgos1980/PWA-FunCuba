@@ -28,11 +28,14 @@ const ModalFun = ({
   description,
   airId,
 }: any) => {
-  const { airFeedbacks } = useAppSelector((state) => state.filteredFeedbacks);
+  const { feedbacks }: any = useAppSelector((state) => state.filteredFeedbacks);
+  console.log("feeds", feedbacks, typeof feedbacks);
 
-  const selectedFeeds = airFeedbacks.filter((feed) => {
+  const selectedFeeds = feedbacks.filter((feed: any) => {
     return feed.airId === airId;
   });
+
+  console.log("selectedFeeds:", selectedFeeds);
 
   const feedback1 = selectedFeeds[0];
   const feedback2 = selectedFeeds[1];
@@ -84,7 +87,7 @@ const ModalFun = ({
                 </div>
                 <div>
                   <h1 className="text-center">FEEDBACKS</h1>
-                  {airFeedbacks ? (
+                  {feedbacks ? (
                     <div className="row">
                       <div className="col-sm-4">
                         <Reviews feedback={feedback1} />

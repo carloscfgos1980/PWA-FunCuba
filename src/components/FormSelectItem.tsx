@@ -1,13 +1,13 @@
-const FormSelectAir = ({ getAirName, items }: any) => {
+const FormSelectItem = ({ getItemId, items }: any) => {
   return (
     <select
       className="form-select"
       aria-label="Default select example"
       defaultValue={"DEFAULT"}
-      onChange={(e) => getAirName(e.target.value)}
+      onChange={(e) => getItemId(e.target.value)}
     >
       <option value="DEFAULT" disabled>
-        Open this select menu
+        Select
       </option>
       {items.map((item: any, index: number) => {
         return (
@@ -20,4 +20,4 @@ const FormSelectAir = ({ getAirName, items }: any) => {
   );
 };
 
-export default FormSelectAir;
+export default FormSelectItem;

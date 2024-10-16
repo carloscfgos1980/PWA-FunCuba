@@ -1,43 +1,58 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const URL_FEEDBACKS = "http://localhost:8000/data";
+const URL_FEEDBACKS = "http://localhost:8000/feedbacks";
 
-type AirBnB = {
-  id: number;
-  airId: number;
-  score: number;
+export type Feed = {
+  id: string;
+  feedId: string;
+  type: string;
+  rate: number;
   comment: string;
+  author: string;
+  country: string;
 };
 
 type FeedbacksState = {
-  airFeedbacks: AirBnB[];
-  chillFeedbacks: [];
+  feedbacks: Feed[];
+  postSuccessful: boolean;
   searchfield: string;
-  airPath: string;
   loading: boolean;
 };
 
-export async function fetchFeedbacks(): Promise</*unresolved*/ any> {
+const fetchFeedbacks = async (): Promise</*unresolved*/ any> => {
   try {
     const response = await axios.get(URL_FEEDBACKS);
-    const feedbacks = response.data[0].feedbacks;
+    const feedbacks = response.data;
     return { feedbacks };
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 export const getFeedbacksAsync = createAsyncThunk(
-  "feedbackss/getFeedbacksAsync",
+  "feedbacks/getFeedbacksAsync",
   fetchFeedbacks,
 );
 
+const saveFeed = async (feed: Feed) => {
+  try {
+    const response = await axios.post(URL_FEEDBACKS, feed);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const saveFeedBacksAsync = createAsyncThunk(
+  "feeds/saveFeedBacksAsync",
+  saveFeed,
+);
+
 const initialState: FeedbacksState = {
-  airFeedbacks: [],
-  chillFeedbacks: [],
+  feedbacks: [],
+  postSuccessful: false,
   searchfield: "",
-  airPath: "lalita",
   loading: true,
 };
 
@@ -48,22 +63,21 @@ export const filteredFeedbacksSlice = createSlice({
     filterFeedbacks: (state, action: PayloadAction<string>) => {
       state.searchfield = action.payload;
     },
-    getPath: (state, action: PayloadAction<string>) => {
-      state.airPath = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(
       getFeedbacksAsync.fulfilled,
       (state, action: PayloadAction<any>) => {
-        state.airFeedbacks = action.payload.feedbacks.airBnB;
-        state.chillFeedbacks = action.payload.feedbacks.chill;
+        state.feedbacks = action.payload.feedbacks;
         state.loading = false;
       },
     );
+    builder.addCase(saveFeedBacksAsync.fulfilled, (state) => {
+      state.postSuccessful = true;
+    });
   },
 });
 
-export const { filterFeedbacks, getPath } = filteredFeedbacksSlice.actions;
+export const { filterFeedbacks } = filteredFeedbacksSlice.actions;
 
 export default filteredFeedbacksSlice.reducer;

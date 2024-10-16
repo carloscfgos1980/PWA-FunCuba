@@ -1,6 +1,6 @@
 import { useState } from "react";
 import airData from "./contentText/airData";
-import FormSelectAir from "./FormSelectAir";
+import FormSelectItem from "./FormSelectItem";
 import { useDispatch } from "react-redux";
 
 import { addAirBnB, deleteAirBnB } from "../redux/filteredTripPlan";
@@ -33,7 +33,7 @@ const AddAirB = ({ city, daysRoute, modal }: any) => {
     }
   };
 
-  const getAirName = (value: string): void => setAirId(value);
+  const getItemId = (value: string): void => setAirId(value);
 
   const seletedAir = seletedAirBs.find((air) => air.id === airId);
   const AirHab: number | undefined = seletedAir?.hab;
@@ -64,7 +64,7 @@ const AddAirB = ({ city, daysRoute, modal }: any) => {
       <h1 className="text-center">Pick a nice place to sleep!</h1>
       <div className="row justify-content-center align-content-center">
         <div className="addAir col-6">
-          <FormSelectAir getAirName={getAirName} items={seletedAirBs} />
+          <FormSelectItem getItemId={getItemId} items={seletedAirBs} />
         </div>
         <div className="col-5">
           <select
